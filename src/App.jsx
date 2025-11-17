@@ -1,0 +1,27 @@
+import { Routes, Route } from 'react-router-dom'
+import Navbar from './components/Navbar'
+import Home from './pages/Home'
+import AITools from './pages/AITools'
+import Contact from './pages/Contact'
+
+function App() {
+  return (
+    <div className="flex flex-col min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
+      <Navbar />
+      <main className="flex-grow">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/ai-tools" element={<AITools />} />
+          <Route path="/contact" element={<Contact />} />
+        </Routes>
+      </main>
+      <footer className="bg-slate-900 border-t border-slate-700 text-center py-6 mt-12">
+        <p className="text-slate-400 text-sm">
+          © 2025 AI in Business Club at Indiana University. All rights reserved.
+        </p>
+      </footer>
+    </div>
+  )
+}
+
+export default App
