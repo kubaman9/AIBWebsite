@@ -114,11 +114,6 @@ export default function Home() {
             <ChevronDown className="w-8 h-8 text-blue-300 animate-bounce" />
           </div>
         </div>
-
-        {/* Scroll Indicator */}
-        <div className="absolute bottom-8 animate-bounce">
-          <ChevronDown className="w-6 h-6 text-blue-300" />
-        </div>
       </section>
 
       {/* About Section */}
@@ -192,7 +187,7 @@ export default function Home() {
               {/* Photo Container with proper aspect ratio */}
               <div className="w-full aspect-auto bg-gradient-to-br from-blue-500 to-purple-500 flex items-center justify-center overflow-hidden">
                 <img
-                  src="/src/Images/AIB Logos/1758918204170.jpg"
+                  src="/AIBWebsite/executive-board.jpg"
                   alt="2025 Executive Board"
                   className="w-full h-auto object-contain"
                 />
