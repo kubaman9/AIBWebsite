@@ -87,7 +87,7 @@ export default function Home() {
           <div className="animate-float-up mb-12">
             <div className="animate-pulse-glow">
               <img
-                src="/src/Images/AIB Logos/Remove background project.png"
+                src="/AIBWebsite/aib-logo.png"
                 alt="AIB Club Logo"
                 className="w-56 h-56 md:w-72 md:h-72 object-contain"
               />
