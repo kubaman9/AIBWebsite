@@ -61,15 +61,35 @@ Please generate a project plan in JSON format.`
   }
 }
 
+const MAX_IDEA_LENGTH = 500
+
 // Project Idea Form Component
 function ProjectIdeaForm({ onGenerate, isLoading }) {
   const [input, setInput] = useState('')
+  const [inputError, setInputError] = useState('')
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    if (input.trim()) {
-      onGenerate(input)
+    const trimmed = input.trim()
+    if (!trimmed) {
+      setInputError('Please enter a project idea.')
+      return
     }
+    if (trimmed.length < 5) {
+      setInputError('Please describe your idea in at least 5 characters.')
+      return
+    }
+    if (trimmed.length > MAX_IDEA_LENGTH) {
+      setInputError(`Idea must be under ${MAX_IDEA_LENGTH} characters.`)
+      return
+    }
+    setInputError('')
+    onGenerate(trimmed)
+  }
+
+  const handleChange = (e) => {
+    setInput(e.target.value)
+    if (inputError) setInputError('')
   }
 
   return (
@@ -83,29 +103,50 @@ function ProjectIdeaForm({ onGenerate, isLoading }) {
         Describe your AI project idea, and we'll generate a personalized plan with recommended tools.
       </p>
 
-      <form onSubmit={handleSubmit} className="flex flex-col md:flex-row gap-4">
-        <input
-          type="text"
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
-          disabled={isLoading}
-          placeholder="Ex: AI-powered study planner, resume optimizer, club website..."
-          className="flex-1 px-4 py-3 bg-slate-700 border border-slate-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-colors disabled:opacity-50"
-        />
-        <button
-          type="submit"
-          disabled={isLoading || !input.trim()}
-          className="px-8 py-3 bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 disabled:from-gray-500 disabled:to-gray-500 text-white font-bold rounded-lg transition-all duration-200 flex items-center justify-center gap-2 whitespace-nowrap"
-        >
-          {isLoading ? (
-            <>
-              <Loader className="w-5 h-5 animate-spin" />
-              Thinking...
-            </>
+      <form onSubmit={handleSubmit} className="flex flex-col gap-3" noValidate>
+        <div className="flex flex-col md:flex-row gap-4">
+          <input
+            type="text"
+            value={input}
+            onChange={handleChange}
+            disabled={isLoading}
+            maxLength={MAX_IDEA_LENGTH}
+            placeholder="Ex: AI-powered study planner, resume optimizer, club website..."
+            className={`flex-1 px-4 py-3 bg-slate-700 border rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-1 transition-colors disabled:opacity-50 ${
+              inputError
+                ? 'border-red-500 focus:border-red-500 focus:ring-red-500'
+                : 'border-slate-600 focus:border-blue-500 focus:ring-blue-500'
+            }`}
+            aria-describedby={inputError ? 'idea-error' : undefined}
+          />
+          <button
+            type="submit"
+            disabled={isLoading || !input.trim()}
+            className="px-8 py-3 bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 disabled:from-gray-500 disabled:to-gray-500 text-white font-bold rounded-lg transition-all duration-200 flex items-center justify-center gap-2 whitespace-nowrap"
+          >
+            {isLoading ? (
+              <>
+                <Loader className="w-5 h-5 animate-spin" />
+                Thinking...
+              </>
+            ) : (
+              'Generate Plan'
+            )}
+          </button>
+        </div>
+        <div className="flex justify-between items-center">
+          {inputError ? (
+            <p id="idea-error" className="text-sm text-red-400 flex items-center gap-1">
+              <AlertCircle className="w-3.5 h-3.5" />
+              {inputError}
+            </p>
           ) : (
-            'Generate Plan'
+            <span />
           )}
-        </button>
+          <span className={`text-xs ${input.length > MAX_IDEA_LENGTH * 0.9 ? 'text-yellow-400' : 'text-gray-500'}`}>
+            {input.length}/{MAX_IDEA_LENGTH}
+          </span>
+        </div>
       </form>
     </div>
   )

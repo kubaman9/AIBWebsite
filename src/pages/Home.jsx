@@ -87,7 +87,7 @@ export default function Home() {
           <div className="animate-float-up mb-12">
             <div className="animate-pulse-glow">
               <img
-                src="/AIBWebsite/aib-logo.png"
+                src="/aib-logo.png"
                 alt="AIB Club Logo"
                 className="w-56 h-56 md:w-72 md:h-72 object-contain"
               />
@@ -187,7 +187,7 @@ export default function Home() {
               {/* Photo Container with proper aspect ratio */}
               <div className="w-full aspect-auto bg-gradient-to-br from-blue-500 to-purple-500 flex items-center justify-center overflow-hidden">
                 <img
-                  src="/AIBWebsite/executive-board.jpg"
+                  src="/executive-board.jpg"
                   alt="2025 Executive Board"
                   className="w-full h-auto object-contain"
                 />
